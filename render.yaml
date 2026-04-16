@@ -1,0 +1,37 @@
+services:
+  # Backend Spring Boot API
+  - type: web
+    name: smart-job-tracker-api
+    env: docker
+    plan: free
+    region: oregon
+    healthCheckPath: /actuator/health
+    branch: main
+    envVars:
+      - key: SPRING_PROFILES_ACTIVE
+        value: prod
+      # Production Database Configuration (Overrides H2)
+      # Fill these in on the Render Dashboard if using a real PostgreSQL/MySQL DB
+      # - key: SPRING_DATASOURCE_URL
+      #   value: jdbc:postgresql://...
+      # - key: SPRING_DATASOURCE_USERNAME
+      #   value: ... 
+      # - key: SPRING_DATASOURCE_PASSWORD
+      #   value: ...
+
+  # Frontend React UI 
+  - type: web
+    name: smart-job-tracker-ui
+    env: static
+    plan: free
+    region: oregon
+    branch: main
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    staticPublishPath: ./dist
+    envVars:
+      - key: VITE_API_BASE_URL
+        fromService:
+          type: web
+          name: smart-job-tracker-api
+          envVarKey: RENDER_EXTERNAL_URL
