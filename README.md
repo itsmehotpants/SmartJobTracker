@@ -8,7 +8,9 @@
 [![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://www.docker.com/)
 [![License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)](LICENSE)
 
-> A **production-ready SaaS backend** for job tracking with enterprise-level features — JWT authentication, role-based access control, application pipeline tracking, advanced search, and more.
+> A **production-ready Full-Stack SaaS platform** for job tracking with enterprise-level features — React Glassmorphic Frontend, JWT authentication, role-based access control, application pipeline tracking, AI Resume Scanning, and advanced search.
+
+![Smart Job Tracker Live Action](assets/demo.webp)
 
 ---
 
