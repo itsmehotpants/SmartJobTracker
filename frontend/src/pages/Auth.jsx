@@ -2,12 +2,14 @@ import React, { useState, useContext, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import { Briefcase } from 'lucide-react';
+import toast from 'react-hot-toast';
 
 const Auth = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [formData, setFormData] = useState({ name: '', email: '', password: '' });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [loadingText, setLoadingText] = useState('');
   
   const { login, register, user } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -31,6 +33,12 @@ const Auth = () => {
     e.preventDefault();
     setError('');
     setLoading(true);
+    setLoadingText(isLogin ? 'Signing In...' : 'Signing Up...');
+
+    const wakeupTimer = setTimeout(() => {
+      setLoadingText('Waking up server... (usually takes ~60s on Free tier)');
+      toast('The backend server is waking up. Please be patient!', { icon: '⏳', duration: 6000 });
+    }, 4000);
 
     let res;
     if (isLogin) {
@@ -39,9 +47,13 @@ const Auth = () => {
       res = await register(formData.name, formData.email, formData.password);
     }
 
+    clearTimeout(wakeupTimer);
+
     if (res.success) {
+      toast.success(isLogin ? 'Successfully logged in!' : 'Account created successfully!');
       navigate('/dashboard');
     } else {
+      toast.error(res.message || 'Authentication failed');
       setError(res.message);
     }
     setLoading(false);
@@ -115,7 +127,7 @@ const Auth = () => {
             style={{ padding: '12px' }}
             disabled={loading}
           >
-            {loading ? 'Please wait...' : (isLogin ? 'Sign In' : 'Sign Up')}
+            {loading ? loadingText : (isLogin ? 'Sign In' : 'Sign Up')}
           </button>
         </form>
 

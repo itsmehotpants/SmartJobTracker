@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, AuthContext } from './context/AuthContext';
+import { Toaster } from 'react-hot-toast';
 
 // We will create these pages next
 import Navbar from './components/Navbar';
@@ -36,6 +37,13 @@ const Layout = ({ children }) => {
 function App() {
   return (
     <AuthProvider>
+      <Toaster 
+        position="top-right" 
+        toastOptions={{
+          style: { background: 'var(--bg-card)', color: 'var(--text-color)', border: '1px solid var(--border-color)', borderRadius: '12px' },
+          success: { iconTheme: { primary: '#10b981', secondary: '#fff' } },
+        }} 
+      />
       <BrowserRouter>
         <Layout>
           <Routes>
