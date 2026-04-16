@@ -8,8 +8,6 @@ services:
     healthCheckPath: /actuator/health
     branch: main
     envVars:
-      - key: SPRING_PROFILES_ACTIVE
-        value: prod
       # Production Database Configuration (Overrides H2)
       # Fill these in on the Render Dashboard if using a real PostgreSQL/MySQL DB
       # - key: SPRING_DATASOURCE_URL
