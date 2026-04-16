@@ -24,7 +24,6 @@ services:
     name: smart-job-tracker-ui
     env: static
     plan: free
-    region: oregon
     branch: main
     rootDir: frontend
     buildCommand: npm install && npm run build
