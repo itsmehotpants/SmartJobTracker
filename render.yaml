@@ -23,7 +23,6 @@ services:
   - type: web
     name: smart-job-tracker-ui
     env: static
-    plan: free
     branch: main
     rootDir: frontend
     buildCommand: npm install && npm run build
